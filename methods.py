@@ -8,20 +8,37 @@ def _change_font(size):
     font = ImageFont.truetype("assets/fonts/lilitaone-regular-webfont (2).ttf", size)
     return font
 
+def _image_request(request):
+    if request.status_code == 200:
+        image = Image.open(BytesIO(request.content))
+    return image
+
+
 def profile(data):
 
+    #Data
     icon_id = data['icon']['id']
-    icon_request = requests.get(f"https://cdn.brawlify.com/profile-icons/regular/{icon_id}.png")
-    if icon_request.status_code == 200:
-        icon = Image.open(BytesIO(icon_request.content))
-
     name = data['name']
-
     name_color = data['nameColor']
-    name_color = f"#{name_color[4:]}"
+    tr = data['trophies']
+    highest_tr = data['highestTrophies']
+    exp = data['expPoints']
+    level = data['expLevel']
+    solo_win = data['soloVictories']
+    duo_win = data['duoVictories']
+    treevstree_win = data['3vs3Victories']
+    best_robot_rumble_time = data['bestRoboRumbleTime']
+    best_big_brawler_time = data['bestTimeAsBigBrawler']
+    championship_challenge_win = data['isQualifiedFromChampionshipChallenge']
+    brawlers = data['brawlers']
 
+    #Icon
+    icon_request = requests.get(f"https://cdn.brawlify.com/profile-icons/regular/{icon_id}.png")
+    icon = _image_request(icon_request)
     image.paste(icon, (5, 5))
 
+    #Name
+    name_color = f"#{name_color[4:]}"
     imageDraw = ImageDraw.Draw(image)
     imageDraw.text((215, 0), name, font_size=100, fill=name_color, font=_change_font(100))
 
