@@ -7,6 +7,7 @@ imageDraw = ImageDraw.Draw(image)
 
 display_trophies = Image.open("assets/img/display_trophies_bar.png")
 display_max_trophies = Image.open("assets/img/display_max_trophies_bar.png")
+display_level = Image.open("assets/img/display_level_bar.png")
 
 def _change_font(size):
     font = ImageFont.truetype("assets/fonts/lilitaone-regular-webfont (2).ttf", size)
@@ -25,7 +26,6 @@ def profile(data):
     name_color = data['nameColor']
     trophies = data['trophies']
     highest_trophies = data['highestTrophies']
-    exp = data['expPoints']
     level = data['expLevel']
     solo_win = data['soloVictories']
     duo_win = data['duoVictories']
@@ -45,12 +45,16 @@ def profile(data):
     imageDraw.text((215, 0), name, fill=name_color, font=_change_font(100))
 
     #Trophies
-    image.paste(display_trophies, (325, -350), mask=display_trophies)
-    imageDraw.text((650, 10), str(trophies), fill="black", font=_change_font(50))
+    image.paste(display_trophies, (325, -335), mask=display_trophies)
+    imageDraw.text((660, 25), str(trophies), fill="black", font=_change_font(50))
 
     #Max Trophies
-    image.paste(display_max_trophies, (325, -225), mask=display_max_trophies)
-    imageDraw.text((650, 135), str(highest_trophies), fill="black", font=_change_font(50))
+    image.paste(display_max_trophies, (325, -230), mask=display_max_trophies)
+    imageDraw.text((660, 130), str(highest_trophies), fill="black", font=_change_font(50))
+
+    #Max Trophies
+    image.paste(display_level, (-60, -235), mask=display_level)
+    imageDraw.text((320, 130), str(level), fill="black", font=_change_font(50))
 
 
     return image
