@@ -8,6 +8,8 @@ imageDraw = ImageDraw.Draw(image)
 display_trophies = Image.open("assets/img/display_trophies_bar.png")
 display_max_trophies = Image.open("assets/img/display_max_trophies_bar.png")
 display_level = Image.open("assets/img/display_level_bar.png")
+display_solo_win = Image.open("assets/img/display_solo_win_bar.png")
+display_duo_win = Image.open("assets/img/display_duo_win_bar.png")
 
 def _change_font(size):
     font = ImageFont.truetype("assets/fonts/lilitaone-regular-webfont (2).ttf", size)
@@ -56,7 +58,14 @@ def profile(data):
     image.paste(display_level, (-60, -235), mask=display_level)
     imageDraw.text((320, 130), str(level), fill="black", font=_change_font(50))
 
-
+    #Solo Win
+    image.paste(display_solo_win, (725, -335), mask=display_solo_win)
+    imageDraw.text((1060, 25), str(solo_win), fill="black", font=_change_font(50))
+    
+    #Duo Win
+    image.paste(display_duo_win, (725, -230), mask=display_duo_win)
+    imageDraw.text((1060, 130), str(duo_win), fill="black", font=_change_font(50))
+    
     return image
 
 def error(response):
