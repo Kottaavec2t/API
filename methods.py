@@ -13,7 +13,6 @@ def _image_request(request):
         image = Image.open(BytesIO(request.content))
     return image
 
-
 def profile(data):
 
     #Data
