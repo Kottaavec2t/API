@@ -21,6 +21,8 @@ def _change_font(size):
 def _image_request(request):
     if request.status_code == 200:
         image = Image.open(BytesIO(request.content))
+    else:
+        error(request)
     return image
 
 def profile(data):
@@ -46,7 +48,10 @@ def profile(data):
         "Accept": "application/json"
     }
     all_brawlers_request = requests.api.get("https://api.brawlstars.com/v1/brawlers", headers=headers)
-    all_brawlers_data = all_brawlers_request.json()
+    if all_brawlers_request.status_code == 200:
+        all_brawlers_data = all_brawlers_request.json()
+    else: 
+        error(all_brawlers_request)
     all_brawlers = all_brawlers_data['items']
 
     #Icon
