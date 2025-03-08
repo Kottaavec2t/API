@@ -52,7 +52,7 @@ def profile(data):
     image.paste(display_max_trophies, (325, -230), mask=display_max_trophies)
     imageDraw.text((660, 130), str(highest_trophies), fill="black", font=_change_font(50))
 
-    #Max Trophies
+    #Level
     image.paste(display_level, (-60, -235), mask=display_level)
     imageDraw.text((320, 130), str(level), fill="black", font=_change_font(50))
 
