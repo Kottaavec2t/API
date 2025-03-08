@@ -3,6 +3,9 @@ from io import BytesIO
 import requests
 
 image = Image.open("assets/img/brawl_stars_lobby.jpg")
+imageDraw = ImageDraw.Draw(image)
+
+display_trophies = Image.open("assets/img/display_trophies_bar.png")
 
 def _change_font(size):
     font = ImageFont.truetype("assets/fonts/lilitaone-regular-webfont (2).ttf", size)
@@ -19,8 +22,8 @@ def profile(data):
     icon_id = data['icon']['id']
     name = data['name']
     name_color = data['nameColor']
-    tr = data['trophies']
-    highest_tr = data['highestTrophies']
+    trophies = data['trophies']
+    highest_trophies = data['highestTrophies']
     exp = data['expPoints']
     level = data['expLevel']
     solo_win = data['soloVictories']
@@ -38,13 +41,16 @@ def profile(data):
 
     #Name
     name_color = f"#{name_color[4:]}"
-    imageDraw = ImageDraw.Draw(image)
-    imageDraw.text((215, 0), name, font_size=100, fill=name_color, font=_change_font(100))
+    imageDraw.text((215, 0), name, fill=name_color, font=_change_font(100))
+
+    #Trophies
+    image.paste(display_trophies, (325, -350), mask=display_trophies)
+    imageDraw.text((650, 10), str(trophies), fill="black", font=_change_font(50))
+
 
     return image
 
 def error(response):
-    imageDraw = ImageDraw.Draw(image)
 
     imageDraw.text((10, 10), f"Error: {str(response.status_code)}", font_size=100, font=_change_font(100))
 
