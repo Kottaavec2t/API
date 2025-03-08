@@ -6,6 +6,7 @@ image = Image.open("assets/img/brawl_stars_lobby.jpg")
 imageDraw = ImageDraw.Draw(image)
 
 display_trophies = Image.open("assets/img/display_trophies_bar.png")
+display_max_trophies = Image.open("assets/img/display_max_trophies_bar.png")
 
 def _change_font(size):
     font = ImageFont.truetype("assets/fonts/lilitaone-regular-webfont (2).ttf", size)
@@ -46,6 +47,10 @@ def profile(data):
     #Trophies
     image.paste(display_trophies, (325, -350), mask=display_trophies)
     imageDraw.text((650, 10), str(trophies), fill="black", font=_change_font(50))
+
+    #Max Trophies
+    image.paste(display_max_trophies, (325, -225), mask=display_max_trophies)
+    imageDraw.text((650, 135), str(highest_trophies), fill="black", font=_change_font(50))
 
 
     return image
